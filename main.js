@@ -42,8 +42,6 @@ const scheduler = new Scheduler({
   resourceStore: {
     readUrl: "http://localhost:3000/read-resources",
     autoLoad: true,
-    sortParamName: "sort",
-    filterParamName: "filter",
   },
 
   eventStore: {
