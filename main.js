@@ -24,6 +24,7 @@ const scheduler = new Scheduler({
   features: {
     filter: false,
     resourceTimeRanges: true,
+    group: false,
   },
 
   columns: [
@@ -40,21 +41,44 @@ const scheduler = new Scheduler({
   ],
 
   resourceStore: {
+    lazyLoad: true,
     readUrl: "http://localhost:3000/read-resources",
     autoLoad: true,
-    sortParamName: "sort",
-    filterParamName: "filter",
+    listeners: {
+      lazyLoadStarted() {
+        updateNetworkValue("Loading", "blue");
+      },
+      lazyLoadEnded() {
+        updateNetworkValue();
+      },
+    },
   },
 
   eventStore: {
-    autoLoad: true,
+    lazyLoad: true,
     readUrl: "http://localhost:3000/read-events",
     fields: [{ name: "duration", persist: false }],
+    listeners: {
+      lazyLoadStarted() {
+        updateNetworkValue("Loading", "blue");
+      },
+      lazyLoadEnded() {
+        updateNetworkValue();
+      },
+    },
   },
 
   resourceTimeRangeStore: {
-    autoLoad: true,
+    lazyLoad: true,
     readUrl: "http://localhost:3000/read-resourcetimeranges",
+    listeners: {
+      lazyLoadStarted() {
+        updateNetworkValue("Loading", "blue");
+      },
+      lazyLoadEnded() {
+        updateNetworkValue();
+      },
+    },
   },
   tbar: [
     {
